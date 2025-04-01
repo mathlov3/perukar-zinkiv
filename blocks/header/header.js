@@ -168,6 +168,33 @@ async function buildBreadcrumbs() {
   return breadcrumbs;
 }
 
+const processScroll = () => {
+  const header = document.querySelector('header');
+  if (window.scrollY > 0) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+};
+
+const processMenuHover = () => {
+  document.querySelectorAll('header nav .nav-sections .default-content-wrapper > ul > li > todo')
+    .forEach((element) => {
+      element.addEventListener('mouseenter', () => {
+        element.setAttribute('aria-expanded', 'true');
+      });
+      element.addEventListener('mouseleave', () => {
+        element.setAttribute('aria-expanded', 'false');
+      });
+    });
+};
+
+const initLiseners = () => {
+  processScroll();
+  document.addEventListener('scroll', processScroll);
+  processMenuHover();
+};
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -240,4 +267,5 @@ export default async function decorate(block) {
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     navWrapper.append(await buildBreadcrumbs());
   }
+  initLiseners();
 }

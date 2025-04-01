@@ -1,4 +1,4 @@
-import { fetchPlaceholders } from '../../scripts/aem.js';
+import { createOptimizedPicture, fetchPlaceholders } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function updateActiveSlide(slide) {
@@ -154,6 +154,12 @@ export default async function decorate(block) {
       slideIndicators.append(indicator);
     }
     row.remove();
+  });
+
+  slidesWrapper.querySelectorAll('picture').forEach((picture) => {
+    const img = picture.querySelector('img');
+    const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width: '2000' }]);
+    picture.replaceWith(optimizedPicture);
   });
 
   container.append(slidesWrapper);

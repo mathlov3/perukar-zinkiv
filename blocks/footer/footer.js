@@ -1,6 +1,10 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
+const onResizeFooter = (block) => {
+  document.body.style.setProperty('--footer-height', `${block.clientHeight}px`);
+};
+
 /**
  * loads and decorates the footer
  * @param {Element} block The footer block element
@@ -17,4 +21,8 @@ export default async function decorate(block) {
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
   block.append(footer);
+  window.addEventListener('resize', () => {
+    onResizeFooter(block);
+  });
+  onResizeFooter(block);
 }
