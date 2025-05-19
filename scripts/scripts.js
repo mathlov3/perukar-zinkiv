@@ -184,21 +184,11 @@ async function loadSidekick() {
   });
 }
 
-const appendGoogleAnalytics = () => {
-  document.addEventListener('DOMContentLoaded', () => {
-    const noscript = document.createElement('noscript');
-    noscript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6KBCKHS"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
-    document.body.insertBefore(noscript, document.body.firstChild);
-  });
-};
-
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
   loadSidekick();
-  appendGoogleAnalytics();
 }
 
 loadPage();
