@@ -268,4 +268,6 @@ export default async function decorate(block) {
     navWrapper.append(await buildBreadcrumbs());
   }
   initLiseners();
+  const logoImage = block.querySelector('.icon.icon-logo img');
+  logoImage.setAttribute('alt', getMetadata('og:title'));
 }
